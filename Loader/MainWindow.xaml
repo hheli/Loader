@@ -1,0 +1,59 @@
+﻿<Window x:Class="Loader.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Loader"
+        xmlns:viewModel="clr-namespace:LoaderViewModel;assembly=LoaderViewModel"
+
+        mc:Ignorable="d"
+        Icon="db_comit_5298.ico"
+        Title="Загрузчик" Height="375" Width="600">
+    <Window.Resources>
+        
+        <viewModel:VmDataLoader x:Key="VmDataLoader" />
+
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
+    <Grid  Margin="0,0,0.4,0.0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <TabControl x:Name="tabControl" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch">
+            <TabItem Header="ОЦР'ы СЗРЦ">
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox x:Name="groupBox1"  Header="Загрузчик" HorizontalAlignment="Stretch" Margin="5" VerticalAlignment="Stretch" Padding="5">
+                        <StackPanel >
+                            <StackPanel.DataContext>
+                                <viewModel:VmDataLoader/>
+                            </StackPanel.DataContext>
+                            <WrapPanel>
+                                <RadioButton GroupName="ModeSelector" Content="ОЦР'ы" IsChecked="{Binding RbIsOcr, Mode=TwoWay}" Margin="10,0,10,0"/>
+                                <RadioButton GroupName="ModeSelector" Content="СЗРЦ" IsChecked="{Binding RbIsSzrc, Mode=TwoWay}" Margin="10,0,10,0"/>
+                                <RadioButton GroupName="ModeSelector" Content="МБанк" IsChecked="{Binding RbIsMbank, Mode=TwoWay}" Margin="10,0,10,0" />
+                                <RadioButton GroupName="ModeSelector" Content="CRM" IsChecked="{Binding RbIsCrm, Mode=TwoWay}" Margin="10,0,10,0" ToolTip="Старые данные необходимо удалять вручную"/>
+                                <RadioButton GroupName="ModeSelector" Content="ОФС от ОЦР" IsChecked="{Binding RbIsOfs, Mode=TwoWay}" Margin="10,0,10,0" />
+                                <RadioButton GroupName="ModeSelector" Content="Профсуждения" IsChecked="{Binding RbIsPs, Mode=TwoWay}" Margin="10,0,10,0"/>
+                                <RadioButton GroupName="ModeSelector" Content="Группы" IsChecked="{Binding RbIsGroup, Mode=TwoWay}" Margin="10,0,10,0"/>
+                            </WrapPanel>
+                            <Label x:Name="label2" Content="Путь к файлу для загрузки"/>
+                            <TextBox x:Name="textBox2"  Height="23" Margin="0,0,0,0" TextWrapping="NoWrap"  Text="{Binding filePath}" VerticalAlignment="Top" TextChanged="textBox2_TextChanged" MouseDoubleClick="textBox2_MouseDoubleClick" />
+                            <WrapPanel>
+                                <Button x:Name="button1" Content="Загрузить" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" RenderTransformOrigin="1.284,0.099"  Command="{Binding UploadBtnClickCommand}" CommandParameter="{Binding}" Height="24"/>
+                                <DatePicker Width="100" Margin="10" IsEnabled="False"/>
+                                <CheckBox x:Name="checkBox1" Content="IsTestMode" Margin="10" IsChecked="{Binding isTestMode}" VerticalAlignment="Center" />
+                            </WrapPanel>
+                            <ProgressBar Height="10" Margin="10" Visibility="{Binding progBarVisibility, Converter={StaticResource BooleanToVisibilityConverter}}" IsIndeterminate="True"/>
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="No Thing">
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox x:Name="groupBox3"  Header="Загрузка МБанк" HorizontalAlignment="Stretch" VerticalAlignment="Stretch "   Margin="10,10,0,0" Padding="10">
+                        <StackPanel  >
+
+                            </StackPanel>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
