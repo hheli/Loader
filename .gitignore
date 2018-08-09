@@ -260,5 +260,5 @@ paket-files/
 __pycache__/
 *.pyc
 
-#config file
+#config file whith pwd
 /Loader/App.config
